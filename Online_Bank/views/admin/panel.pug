@@ -1,0 +1,67 @@
+extends ../layout
+
+block content
+  .container.mt-5
+    h2 Admin Panel
+
+    // Users
+    h3 Users
+    table.table.table-bordered
+      thead
+        tr
+          th Username
+          th Admin
+          th Status
+          th Action
+      tbody
+        each user in users
+          tr
+            td= user.username
+            td= user.isAdmin ? 'Yes' : 'No'
+            //- td= user.status
+            td= user.isActive ? 'Active' : 'Inactive'
+            td
+              form(method="POST", action=`/admin/user/${user._id}/toggle`)
+                button.btn.btn-warning Toggle Status
+
+    hr
+
+    // Accounts
+    h3 Accounts
+    table.table.table-bordered
+      thead
+        tr
+          th Type
+          th Balance
+          th Owner
+          th Status
+          th Action
+      tbody
+        each acc in accounts
+          tr
+            td= acc.accountType
+            td= acc.balance
+            td= acc.createdBy.username
+            td= acc.status
+            td
+              form(method="POST", action=`/admin/account/${acc._id}/toggle`)
+                button.btn.btn-warning Toggle Status
+
+    hr
+
+    // Transactions
+    h3 Transactions
+    table.table.table-bordered
+      thead
+        tr
+          th Type
+          th Amount
+          th Account
+          th Date
+      tbody
+        each t in transactions
+          tr
+            td= t.type
+            td= '$' + Number(t.amount).toFixed(2)
+            td= t.account ? t.account.accountType : 'N/A'
+            td= t.createdAt.toDateString()

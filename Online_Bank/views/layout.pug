@@ -1,0 +1,21 @@
+doctype html
+
+html
+  head
+    title Online Banking
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css")
+
+  body
+    include navbar
+    //- Flash messange, show error message using alert
+    .container.mt-3
+      if messages.error
+        .alert.alert-danger= messages.error
+
+      if messages.success
+        .alert.alert-success= messages.success
+
+    .container.mt-4
+      block content
+
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js")

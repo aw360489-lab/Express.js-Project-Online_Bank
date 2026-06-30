@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+  .container.mt-5
+    h2 Create Account
+  
+    a.btn.btn-secondary(href="/dashboard") Back to Dashboard
+
+    form.mt-3(method="POST", action="/accounts/create")
+      .mb-3
+        label.form-label Account Type
+        select.form-control(name="accountType")
+          option(value="" selected disabled) -- Select account type --
+          option(value="Savings") Savings
+          option(value="Checking") Checking
+          option(value="Business") Business
+
+      button.btn.btn-primary(type="submit") Create Account

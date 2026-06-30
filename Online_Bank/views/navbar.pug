@@ -1,0 +1,36 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  .container-fluid
+    a.navbar-brand(href="/") Online Bank
+
+    button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav")
+      span.navbar-toggler-icon
+
+    .collapse.navbar-collapse#navbarNav
+      ul.navbar-nav.ms-auto
+
+        if user
+          li.nav-item
+            span.nav-link Hello #{user.username}
+
+          li.nav-item
+            a.nav-link(href="/dashboard") Dashboard
+
+          li.nav-item
+            a.nav-link(href="/transactions") Transaction Search
+
+          li.nav-item
+            a.nav-link(href="/profile") Profile
+
+          if user.isAdmin
+            li.nav-item
+              a.nav-link(href="/admin") Admin Panel
+
+          li.nav-item
+            a.nav-link(href="/logout") Logout
+
+        else
+          li.nav-item
+            a.nav-link(href="/login") Login
+
+          li.nav-item
+            a.nav-link(href="/register") Register

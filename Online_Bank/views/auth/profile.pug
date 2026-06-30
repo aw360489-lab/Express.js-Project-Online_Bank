@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+  h2 Update Profile
+
+  form(method="POST", action="/profile")
+    .mb-3
+      label.form-label Address
+      input.form-control(
+        type="text",
+        name="address",
+        value=user.address,
+        placeholder="Enter your address"
+      )
+
+    .mb-3
+      label.form-label Phone
+      input.form-control(
+        type="text",
+        name="phone",
+        value=user.phone,
+        placeholder="Enter your phone number"
+      )
+
+    button.btn.btn-primary(type="submit") Save Changes

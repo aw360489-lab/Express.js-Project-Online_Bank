@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+  .container.mt-5
+    h2 Your accounts
+
+    a.btn.btn-primary.mb-3(href="/accounts/create") + Create Account
+    
+    each account in accounts
+      .card.mb-3.p-3
+        p #{account.accountType} - $#{account.balance}
+        p Status: #{account.status}
+
+        a.btn.btn-info(href=`/accounts/${account._id}`) View Details
+  
+  if user
+    .card.p-3.mb-4
+      h5 Personal Details
+      p.mb-1 Address: #{user.address || 'Not provided'}
+      p.mb-1 Phone: #{user.phone || 'Not provided'}
+      a.btn.btn-outline-primary(href="/profile") Update Profile

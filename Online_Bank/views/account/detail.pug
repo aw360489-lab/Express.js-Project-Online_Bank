@@ -1,0 +1,55 @@
+extends ../layout
+
+block content
+  h2 Account Details
+
+  a.btn.btn-secondary.mb-3(href="/dashboard") Back to Dashboard
+
+  .card.p-3.mb-4
+    p Type: #{account.accountType}
+    p Balance: $#{account.balance}
+    p Status: #{account.status}
+
+  form(method="POST", action=`/accounts/${account._id}/toggle`)
+    button.btn.btn-warning(type="submit") Toggle Status
+
+  form.mt-3(method="POST", action=`/accounts/${account._id}/delete`)
+    button.btn.btn-danger(type="submit") Delete Account
+
+  hr
+
+  h4 Deposit
+  form(method="POST", action=`/accounts/${account._id}/deposit`)
+    input.form-control.mb-2(type="number", name="amount", placeholder="Amount", min="1", required)
+    input.form-control.mb-2(type="text", name="description", placeholder="Description", required)
+    button.btn.btn-success(type="submit") Deposit
+
+  h4.mt-3 Withdraw
+  form(method="POST", action=`/accounts/${account._id}/withdraw`)
+    input.form-control.mb-2(type="number", name="amount", placeholder="Amount", min="1", required)
+    input.form-control.mb-2(type="text", name="description", placeholder="Description", required)
+    button.btn.btn-danger(type="submit") Withdraw
+
+  h4.mt-3 Transfer
+  form(method="POST", action=`/accounts/${account._id}/transfer`)
+    select.form-control.mb-2(name="toAccountId", required)
+      option(value="" selected disabled) Select target account
+      each acc in accounts
+        if acc._id.toString() !== account._id.toString()
+          option(value=acc._id) #{acc.accountType} - $#{acc.balance}
+
+    input.form-control.mb-2(type="number", name="amount", placeholder="Amount", min="1", required)
+    input.form-control.mb-2(type="text", name="description", placeholder="Description", required)
+    button.btn.btn-primary(type="submit") Transfer
+
+  hr
+
+  h3 Transaction History
+  if transactions && transactions.length > 0
+    each t in transactions
+      .card.mb-2.p-2
+        p Type: #{t.type}
+        p Amount: $#{t.amount}
+        p Date: #{t.createdAt.toDateString()}
+  else
+    p No transactions yet

@@ -1,0 +1,49 @@
+extends ../layout
+
+block content
+  .container.mt-5
+    h2 Transaction Search
+
+    a.btn.btn-secondary.mb-3(href="/dashboard") Back to Dashboard
+
+    form(method="GET", action="/transactions")
+      .row
+        
+        //- Drop-down select account 
+        .col-md-3
+          select.form-control(name="account")
+            option(value="") All Accounts
+            each acc in userAccounts
+              option(
+                value=acc._id,
+                selected=(filters.account == acc._id.toString())
+              ) #{acc.accountType}
+
+        .col-md-3
+          input.form-control(type="text", name="search", placeholder="Description", value=filters.search)
+
+        .col-md-3
+          input.form-control(type="number", name="amount", min="1", placeholder="Amount", value=filters.amount)
+      
+      .row
+
+        .col-md-3
+          input.form-control(type="date", name="dateFrom", value=filters.dateFrom)
+
+        .col-md-3
+          input.form-control(type="date", name="dateTo", value=filters.dateTo)
+
+      button.btn.btn-primary.mt-3(type="submit") Search
+
+    hr
+
+    if transactions.length === 0
+      p No results found
+    else
+      each t in transactions
+        .card.mb-2.p-2
+          p #{t.description}
+          p Amount: $#{t.amount}
+          p Type: #{t.type}
+          p Account: #{t.account.accountType}
+          p Date: #{t.createdAt.toDateString()}
