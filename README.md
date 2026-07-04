@@ -1,4 +1,4 @@
-# Online Banking
+# Online Bank
 
 ## Overview
 
